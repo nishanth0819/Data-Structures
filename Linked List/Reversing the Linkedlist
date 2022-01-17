@@ -1,0 +1,13 @@
+#3 Pointers Approach
+void reverse(struct node *p)
+{
+    struct node *q=NULL,*r=NULL;
+    while(p)
+    {
+        r=q;
+        q=p;
+        p=p->next;
+        q->next=r;
+    }
+    head=q;
+}
