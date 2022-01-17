@@ -1,0 +1,67 @@
+#There are N stones, numbered 1,2,…,N. For each i (1≤i≤N), the height of Stone i is hi
+#There is a frog who is initially on Stone 1. He will repeat the following action some number of times to reach Stone N
+#If the frog is currently on Stone i, jump to one of the following: Stone i+1,i+2,…,i+K. Here,cost is |hi-hj| 
+#Find the minimum possible total cost incurred before the frog reaches Stone N.
+#i/p
+5 3
+10 30 40 50 20
+#op :30 (1->2->5)
+
+#RECURSIVE CODE:
+int find(int ind,vector<int> hei,int k)
+{
+    if(ind==0)
+       return 0;
+    int min_steps=INT_MAX;
+    for(int j=1;j<=k;j++)
+    {
+        if(ind-j>=0)
+        {
+        int res=find(ind-j,hei,k)+abs(hei[ind]-hei[ind-j]);
+        min_steps=min(res,min_steps);
+        }
+    }
+    return min_steps;
+}
+
+#BOTTOM UP
+
+int find(int ind,vector<int> hei,vector<int> &dp,int k)
+{
+    if(ind==0)
+       return 0;
+    if(dp[ind]!=-1)
+        return dp[ind];
+    int min_steps=INT_MAX;
+    for(int j=1;j<=k;j++)
+    {
+        if(ind-j>=0)
+        {
+        int res=find(ind-j,hei,dp,k)+abs(hei[ind]-hei[ind-j]);
+        min_steps=min(res,min_steps);
+        }
+    }
+    return dp[ind]=min_steps;
+}
+
+#TOP-DOWN Approach
+
+int finddp(int n,vector<int> hei,int k)
+{
+    vector<int> dp(n,-1);
+    dp[0]=0;
+    for(int i=1;i<n;i++)
+    {
+        int min_val=INT_MAX;
+      for(int j=1;j<=k;j++)
+     {
+         if(n-i>=0)
+         {
+            int res=dp[i-j]+abs(hei[i]-hei[i-j]);
+           min_val=min(res,min_val);
+         }
+     }
+     dp[i]=min_val;
+    }
+    return dp[n-1];
+}
