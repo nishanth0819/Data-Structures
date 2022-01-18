@@ -1,0 +1,78 @@
+#LinkedList: 1->2->2->4->5->6->7->8
+K = 4
+Output: 4 2 2 1 8 7 6 5 
+#LinkedList: 1->2->3->4->5
+K = 3
+Output: 3 2 1 5 4 
+
+#CODE
+
+#include<iostream>
+using namespace std;
+struct node
+{
+    int data;
+    struct node *next;
+}*head=NULL;
+void create(int n)
+{
+    struct node *temp,*p;
+    temp=new node;
+    cin>>temp->data;
+    temp->next=NULL;
+    head=temp;
+    for(int i=1;i<n;i++)
+    {
+        int x;
+        cin>>x;
+        p=new node;
+        p->data=x;
+        p->next=NULL;
+        temp->next=p;
+        temp=p;
+    }
+}
+void show(struct node *p)
+{ 
+    while(p)
+    {
+        cout<<p->data<<" ";
+        p=p->next;
+    }
+}
+void rev(struct node *p,int k)
+{
+    struct node *q,*r,*temp=NULL,*new1=NULL;
+    while(p!=NULL)
+    {
+        int count=k;
+        q=NULL;
+        r=NULL;
+        struct node *p1=p;
+        while(count-- && p!=NULL)
+        {
+            r=q;
+            q=p;
+            p=p->next;
+            q->next=r;
+            
+        }
+        if(temp==NULL)
+        {
+            temp=p1;
+           new1=q;
+        }
+        else
+        {
+            temp->next=q;
+            temp=p1;
+        }
+    }
+    head=new1;
+}
+int main()
+{
+    create(5);
+    rev(head,3);
+    show(head);
+}
