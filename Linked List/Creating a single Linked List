@@ -34,6 +34,5 @@ void show(struct node *p)
 int main()
 {
     create(5);
-    reverse(head);
     show(head);
 }
