@@ -1,0 +1,22 @@
+#function findStartingNode() that checks whether a given Linked List contains a loop. 
+#If the loop is present then it returns point to the first node of the loop.
+#Else it returns NULL.
+
+Code:
+
+Node* findingstartingnode(Node* head)
+{
+	unordered_map<Node*,int> mp;
+     struct Node *res=NULL,*p=head;
+    while(p)
+    {
+      if(mp[p]==1)
+      {
+        res=p;
+        break;
+      }
+      mp[p]=1;
+      p=p->next;
+    }
+      return res;
+}
