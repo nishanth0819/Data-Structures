@@ -1,0 +1,43 @@
+#We are given an array/list of ‘N’ integers. 
+#We are supposed to return the maximum sum of the subsequence with the constraint that no two elements are adjacent in the given array/list.
+#I/P:
+3
+2 3 2
+#o/p:
+5
+#I/P:
+4
+1 3 2 1
+#o/p
+4
+
+#DP CODE(TOP-DOWN)
+
+long long int find( int ind,vector< int> g,vector<int> &dp)
+{
+    if(ind==0)
+        return g[0];
+     if(ind<0)
+         return 0;
+    if(dp[ind]!=-1)
+        return dp[ind];
+     int take=g[ind]+find(ind-2,g,dp);
+     int nottake=find(ind-1,g,dp);
+    return dp[ind]=max(take,nottake);
+}
+long long int houseRobber(vector<int>& valueInHouse)
+{
+     vector<int> temp1,temp2;
+     int n=valueInHouse.size();
+    vector<int> dp1(n,-1),dp2(n,-1);
+    if(n==1)
+        return valueInHouse[0];
+    for(int i=0;i<n;i++)
+    {
+        if(i!=0) 
+            temp1.push_back(valueInHouse[i]);
+         if(i!=n-1)
+             temp2.push_back(valueInHouse[i]);
+    }
+    return max(find(n-2,temp1,dp1),find(n-2,temp2,dp2));
+}
