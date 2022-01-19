@@ -1,0 +1,58 @@
+#Given a linked list of N nodes. The task is to check if the linked list has a loop. Linked list can contain self loop.
+IP1:N = 4
+value[] = {1,2,3,4}
+X = 1
+Output: True
+Explanation: The link list looks like 
+1 -> 2 -> 3 -> 4
+|______________|
+IP2:
+N = 4
+value[] = {1,8,3,4}
+x = 0
+Output: False
+
+CODE:(Uisng fast and Slow pointers)
+ bool detectLoop(Node* head)
+    {
+        struct Node *fast=head,*slow=head;
+        int flag=0;
+        while(fast!=NULL && fast->next!=NULL)
+        {
+            fast=fast->next->next;
+            slow=slow->next;
+            if(fast==slow)
+            {
+                flag=1;
+                break;
+            }
+        }
+        if(flag)
+           return true;
+        else
+           return false;
+        
+    }
+CODE(Using MAP):
+ bool detectLoop(Node* head)
+    {
+        unordered_map<Node *,int> mp;
+        int flag=0;
+        struct Node *p=head;
+        while(p)
+        {
+            if(mp[p]==1)
+            {
+                flag=1;
+                break;
+            }
+            else
+              mp[p]=1;
+           p=p->next;
+        }
+        if(flag)
+          return true;
+        else
+           return false;
+        
+    }
