@@ -1,0 +1,38 @@
+#Given a singly linked list consisting of N nodes. The task is to remove duplicates (nodes with duplicate values) from the given list (if exists).
+Input:
+LinkedList: 2->2->4->5
+Output: 2 4 5
+Explanation: In the given linked list 
+2 ->2 -> 4-> 5, only 2 occurs more 
+than 1 time.
+
+Input:
+LinkedList: 2->2->2->2->2
+Output: 2
+Explanation: In the given linked list 
+2 ->2 ->2 ->2 ->2, 2 is the only element
+and is repeated 5 times.
+
+Code:
+void removeDuplicates(struct Node* head)
+{
+    struct Node *p=head->next;
+    struct Node *q=head;
+    int flag=0;
+    while(p)
+    {
+        flag=0;
+        if(p->data==q->data)
+        {
+            q->next=p->next;
+            p=p->next;
+            flag=1;
+        }
+        if(flag==0)
+        {
+        q=p;
+        p=p->next;
+        }
+    }
+    
+}
