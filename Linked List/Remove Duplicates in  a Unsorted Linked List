@@ -1,0 +1,24 @@
+#I/P:
+N = 4
+value[] = {5,2,2,4}
+Output: 5 2 4
+
+
+#CODE:
+Node * removeDuplicates( Node *head) 
+    {
+     // your code goes here
+     unordered_set<int> s;
+    
+     Node *p=head;
+     while(p->next)
+     {
+          s.insert(p->data);
+          if(s.find(p->next->data)!=s.end())
+             p->next=p->next->next;
+        else
+          p=p->next;
+         
+     }
+     return head;
+    }
