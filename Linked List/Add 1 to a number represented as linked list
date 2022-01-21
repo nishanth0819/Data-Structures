@@ -1,0 +1,74 @@
+#Input:
+LinkedList: 4->5->6
+Output: 457 
+#Input:
+LinkedList: 1->2->3
+Output: 124 
+
+
+#CODE:
+
+class Solution
+{
+    public:
+    Node* addOne(Node *head) 
+    {
+        stack<int> st;
+        Node *p=head;
+        while(p)
+         {
+             st.push(p->data);
+             p=p->next;
+         }
+         int carry=0;
+         Node * new1=NULL;
+         while(carry || st.size())
+         {
+             int x=st.top();
+             st.pop();
+             if(new1==NULL)
+             {
+                 x=x+1;
+                 Node *temp;
+                 if(x>9)
+                 {
+                    carry=1;
+                    temp=new Node(0);
+                 }
+                 else
+                 {
+                     carry=0;
+                     temp=new Node(x);
+                 }
+                 new1=temp;
+             }
+             else
+             {
+                x=x+carry;
+                Node *temp;
+                 if(x>9)
+                 {
+                    carry=1;
+                    temp=new Node(0);
+                 }
+                 else
+                 {
+                     carry=0;
+                     temp=new Node(x);
+                 }
+                 temp->next=new1;
+                 new1=temp;
+            }
+         if(st.size()==0 && carry==1)
+            {
+                Node *temp;
+                temp=new Node(carry);
+                temp->next=new1;
+                 new1=temp;
+                 carry=0;
+            }
+       }
+        return new1;
+        
+    }
+};
