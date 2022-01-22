@@ -1,0 +1,42 @@
+#Input:
+L1 = 1->2->3->4->6
+L2 = 2->4->6->8
+Output: 2 4 6
+Explanation: For the given first two
+linked list, 2, 4 and 6 are the elements
+in the intersection.
+
+#Input:
+L1 = 10->20->40->50
+L2 = 15->40
+Output: 40
+
+CODE:
+Node* findIntersection(Node* head1, Node* head2)
+{
+    // Your Code Here
+    struct Node *p=head1,*q=head2;
+    struct Node *head=NULL,*tail;
+    while(p!=NULL && q!=NULL)
+    {
+        if(p->data>q->data)
+            q=q->next;
+        else if(p->data<q->data)
+             p=p->next;
+        else
+        {
+            struct Node* node=new Node(p->data);
+            node->next=NULL;
+            if(head==NULL)
+               head=tail=node;
+            else
+              {
+                  tail->next=node;
+                  tail=node;
+              }
+              p=p->next;
+              q=q->next;
+        }
+    }
+    return head;
+}
