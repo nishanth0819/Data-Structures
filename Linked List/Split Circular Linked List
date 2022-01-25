@@ -1,0 +1,38 @@
+#Given a Cirular Linked List of size N, split it into two halves circular lists. 
+#If there are odd number of nodes in the given circular linked list then out of the resulting two halved lists, first list should have one node more than the second list. 
+#The resultant lists should also be circular lists and not linear lists.
+
+#Input:
+Circular LinkedList: 1->5->7
+Output:
+1 5
+7
+
+#Input:
+Circular LinkedList: 2->6->1->5
+Output:
+2 6
+1 5
+
+
+Code:
+void splitList(Node *head, Node **head1_ref, Node **head2_ref)
+{
+    struct Node *p=head;
+    struct Node *q=head;
+    while( q->next!=head)
+    {
+        q=q->next;
+        if(q->next!=head)
+        {
+            q=q->next;
+            p=p->next;
+        }
+    }
+    *head2_ref=p->next;
+    *head1_ref=head;
+    q->next=*head2_ref;
+    p->next=*head1_ref;
+    return ;
+    
+}
