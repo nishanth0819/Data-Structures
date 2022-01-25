@@ -1,0 +1,70 @@
+0/1 Knapsack:
+
+#I/P:
+N = 3
+W = 4
+values[] = {1,2,3}
+weight[] = {4,5,1}
+Output: 3
+
+#I/P:
+N = 3
+W = 3
+values[] = {1,2,3}
+weight[] = {4,5,6}
+Output: 0
+
+#RECURSIVE CODE:
+int knapsack(vector<int> wt,vector<int> pro,int w,int n)
+{
+    if(n==0 || w==0)
+        return 0;
+    if(wt[n-1]>w)
+        return knapsack(wt,pro,w,n-1);
+    else 
+        return max(knapsack(wt,pro,w,n-1),pro[n-1]+knapsack(wt,pro,w-wt[n-1],n-1)); 
+}
+
+#BOTTOM-UP CODE:
+
+int knapsack(vector<int> wt,vector<int> pro,int w,int n,vector<vector<int>> &dp)
+{
+    if(n==0 || w==0)
+    {
+        dp[n][w]=0;
+        return 0;
+    }
+    if(dp[n][w]!=-1)
+        return dp[n][w];
+    if(wt[n-1]>w)
+        return dp[n][w]=knapsack(wt,pro,w,n-1,dp);
+    else 
+        return dp[n][w]=max(knapsack(wt,pro,w,n-1,dp),pro[n-1]+knapsack(wt,pro,w-wt[n-1],n-1,dp)); 
+}
+
+#TOP-DOWN CODE:
+
+int knapSack(int w, int wt[], int pro[], int n) 
+    { 
+       // Your code here
+       int dp[n+1][w+1];
+       for(int i=0;i<n+1;i++)
+       {
+           for(int j=0;j<w+1;j++)
+           {
+               if(i==0 || j==0)
+                  dp[i][j]=0;
+           }
+       }
+       for(int i=1;i<n+1;i++)
+       {
+           for(int j=1;j<w+1;j++)
+           {
+               if(wt[i-1]>j)
+                 dp[i][j]=dp[i-1][j];
+               else
+                 dp[i][j]=max(dp[i-1][j],pro[i-1]+dp[i-1][j-wt[i-1]]);
+           }
+       }
+       return dp[n][w];
+    }
