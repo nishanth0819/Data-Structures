@@ -1,0 +1,53 @@
+#You are given a triangular array/list 'TRIANGLE'. Your task is to return the minimum path sum to reach from the top to the bottom row.
+#The triangle array will have N rows and the i-th row, where 0 <= i < N will have i + 1 elements.
+#You can move only to the adjacent number of row below each step. 
+#For example, if you are at index j in row i, then you can move to i or i + 1 index in row j + 1 in each step.
+
+#I/P:
+If the array given is 'TRIANGLE' = [[1], [2,3], [3,6,7], [8,9,6,1]] the triangle array will look like:
+1
+2,3
+3,6,7
+8,9,6,10
+For the given triangle array the minimum sum path would be 1->2->3->8. Hence the answer would be 14.
+#I/P:
+2 
+3 4
+6 5 7
+4 1 8 3
+O/p:11
+
+#RECURSIVE CODE:
+
+int f(int i,int j,vector<vector<int>> &tri,int n)
+{
+    if(i==n-1)
+        return tri[i][j];
+    int down=tri[i][j]+f(i+1,j,tri,n);
+    int dia=tri[i][j]+f(i+1,j+1,tri,n);
+    return min(down,dia);
+}
+int minimumPathSum(vector<vector<int>>& triangle, int n){
+	return f(0,0,triangle,n);
+}
+
+#BOTTOM-UP CODE:
+
+int f(int i,int j,vector<vector<int>> &tri,int n,vector<vector<int>> &dp)
+{
+    if(i==n-1)
+        return dp[i][j]=tri[i][j];
+    if(dp[i][j]!=-1)
+        return dp[i][j];
+    int down=tri[i][j]+f(i+1,j,tri,n,dp);
+    int dia=tri[i][j]+f(i+1,j+1,tri,n,dp);
+    return dp[i][j]=min(down,dia);
+}
+int minimumPathSum(vector<vector<int>>& triangle, int n){
+    vector<vector<int>> dp(n,vector<int>(n,-1));
+	return f(0,0,triangle,n,dp);
+}
+
+#TOP-DOWN CODE:
+
+
