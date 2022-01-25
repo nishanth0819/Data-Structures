@@ -1,0 +1,26 @@
+#Given a doubly linked list of n elements. The task is to reverse the doubly linked list.
+
+#Input:
+LinkedList: 3 <--> 4 <--> 5
+Output: 5 4 3
+
+#Input:
+LinkedList: 75 <--> 122 <--> 59 <--> 196
+Output: 196 59 122 75
+
+#Code:
+
+struct Node* reverseDLL(struct Node * head)
+{
+    struct Node *p=head,*q=NULL,*r=NULL;
+    while(p)
+    {
+        r=q;
+        q=p;
+        p=p->next;
+        q->next=r;
+        q->prev=p;
+    }
+    head=q;
+    return head;
+}
