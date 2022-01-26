@@ -48,6 +48,23 @@ int minimumPathSum(vector<vector<int>>& triangle, int n){
 	return f(0,0,triangle,n,dp);
 }
 
-#TOP-DOWN CODE:
+#TOP-DOWN COCE:
+int minimumPathSum(vector<vector<int>>& tri, int n){
+    vector<vector<int>> dp(n,vector<int>(n,-1));
+     for(int j=n-1;j>=0;j--)
+     {
+         dp[n-1][j]=tri[n-1][j];
+     }
+    for(int i=n-2;i>=0;i--)
+    {
+        for(int j=i;j>=0;j--)
+        {
+            int left=tri[i][j]+dp[i+1][j];
+            int dia=tri[i][j]+dp[i+1][j+1];
+            dp[i][j]=min(left,dia);
+        }
+    }
+    return dp[0][0];
+}
 
 
