@@ -1,0 +1,79 @@
+#You have been given an N*M matrix filled with integer numbers, 
+#find the maximum sum that can be obtained from a path starting from any cell in the first row to any cell in the last row.
+#From a cell in a row, you can move to another cell directly below that row, or diagonally below left or right. 
+#So from a particular cell (row, col), we can move in three directions i.e.
+Down: (row+1,col)
+Down left diagonal: (row+1,col-1)
+Down right diagonal: (row+1, col+1)
+
+#i/p:
+4 4
+1 2 10 4
+100 3 2 1
+1 1 20 2
+1 2 2 1
+o/p:
+105
+
+#i/p:
+3 3
+10 2 3
+3 7 2
+8 1 5
+o/p:
+25
+
+#Recursive Code:
+int f(int i,int j,vector<vector<int>> &g)
+{
+    if(j<0 || j>=g[0].size())
+        return -1e8;
+    if(i==0)
+        return g[0][j];
+     int up=g[i][j]+f(i-1,j,g);
+    int left=g[i][j]+f(i-1,j-1,g);
+    int right=g[i][j]+f(i-1,j+1,g);
+    return max(up,max(left,right));
+}
+int getMaxPathSum(vector<vector<int>> &matrix)
+{
+    int n=matrix.size();
+    int m=matrix[0].size();
+    int maxi=-1e8;
+    for(int j=0;j<m;j++)
+    {
+      maxi=max(maxi,f(n-1,j,matrix));
+    }
+    return maxi;
+}
+
+#Bottom Up Code:
+
+int f(int i,int j,vector<vector<int>> &g,vector<vector<int>> &dp)
+{
+    if(j<0 || j>=g[0].size())
+        return -1e8;
+    if(i==0)
+        return dp[i][j]=g[0][j];
+    if(dp[i][j]!=-1)
+        return dp[i][j];
+     int up=g[i][j]+f(i-1,j,g,dp);
+    int left=g[i][j]+f(i-1,j-1,g,dp);
+    int right=g[i][j]+f(i-1,j+1,g,dp);
+    return max(up,max(left,right));
+}
+int getMaxPathSum(vector<vector<int>> &matrix)
+{
+    int n=matrix.size();
+    int m=matrix[0].size();
+    int maxi=-1e8;
+    for(int j=0;j<m;j++)
+    {
+        vector<vector<int>> dp(n,vector<int>(m,-1));
+      maxi=max(maxi,f(n-1,j,matrix,dp));
+    }
+    return maxi;
+}
+
+#Top-Down Code:
+
