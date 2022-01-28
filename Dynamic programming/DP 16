@@ -1,0 +1,26 @@
+#Given a set of non-negative integers, and a value sum, determine if there is a subset of the given set with sum equal to given sum. 
+
+#Input: set[] = {3, 34, 4, 12, 5, 2}, sum = 9
+Output: True  
+There is a subset (4, 5) with sum 9.
+
+#Input: set[] = {3, 34, 4, 12, 5, 2}, sum = 30
+Output: False
+There is no subset that add up to 30.
+
+#Recursive Code:
+
+bool issubset(int n,vector<int> &g,int sum)
+{
+    if(n==0)
+       return false;
+    if(sum==0)
+        return true;
+    if(g[n-1]>sum)
+        return issubset(n-1,g,sum);
+    else
+      return issubset(n-1,g,sum)||issubset(n-1,g,sum-g[n-1]);
+}
+
+#BOTTOM-UP CODE:
+
