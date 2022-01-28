@@ -1,0 +1,82 @@
+#Given a doubly linked list containing n nodes. The problem is to reverse every group of k nodes in the list.
+
+#Original list: 10 8 4 2 ,K=2
+Modified list: 8 10 2 4 
+
+#CODE:
+
+#include<iostream>
+#include<queue>
+using namespace std;
+struct node
+{
+    struct node *left;
+    int data;
+    struct node *right;
+}*head=NULL,*tail=NULL;
+void insert(int n)
+{
+    struct node *temp;
+    temp=new node;
+    temp->data=n;
+    temp->left=temp->right=NULL;
+    if(head==NULL)
+         head=tail=temp;
+    else
+    {
+        temp->left=tail;
+        tail->right=temp;
+        tail=temp;
+    }
+}
+void reversek(struct node *p,int k)
+{
+    struct node *newhead=NULL;struct node *r=NULL,*q=NULL;
+    struct node *next=NULL;
+    while(p!=NULL)
+    {
+        int count=k;
+        struct node *temp1=p;
+        r=NULL,q=NULL;
+        while(count!=0 && p!=NULL)
+        {
+            r=q;
+            q=p;
+            p=p->right;
+            q->right=r;
+            q->left=p;
+            count--;
+        }
+        if(newhead==NULL)
+        {
+            newhead=q;
+            next=temp1;
+        }
+        else
+        {
+            next->right=q;
+            q->left=next;
+            next=temp1;
+        }
+    }
+    head=newhead;
+}
+void display(struct node *p)
+{
+    while(p)
+    {
+        cout<<p->data<<"<->";
+        p=p->right;
+    }
+}
+int main()
+{
+    insert(1);
+    insert(2);
+    insert(3);
+    insert(4);
+    insert(5);
+    insert(6);
+    reversek(head,6);
+    display(head);
+}
