@@ -1,0 +1,87 @@
+#Given a doubly linked list containing n nodes, where each node is at most k away from its target position in the list. The problem is to sort the given doubly linked list. 
+For example, let us consider k is 2, a node at position 7 in the sorted doubly linked list, can be at positions 5, 6, 7, 8, 9 in the given doubly linked list.
+
+
+#CODE:
+
+#include<iostream>
+#include<queue>
+using namespace std;
+struct node
+{
+    struct node *left;
+    int data;
+    struct node *right;
+}*head=NULL,*tail=NULL;
+void insert(int n)
+{
+    struct node *temp;
+    temp=new node;
+    temp->data=n;
+    temp->left=temp->right=NULL;
+    if(head==NULL)
+         head=tail=temp;
+    else
+    {
+        temp->left=tail;
+        tail->right=temp;
+        tail=temp;
+    }
+}
+struct compare
+{
+    bool operator()(struct node *p1,struct node *p2)
+    {
+        return p1->data>p2->data;
+    }
+};
+struct node * ksort(struct node *p,int k)
+{
+    priority_queue<node *,vector<node*>,compare> pq;
+    struct node *head2=NULL,*curr;
+    for(int i=0;i<=k && p!=NULL;i++)
+    {
+        pq.push(p);
+        p=p->right;
+    }
+    while(pq.size()!=0)
+    {
+        if(head2==NULL)
+        {
+            head2=curr=pq.top();
+        }
+        else
+        {
+            curr->right=pq.top();
+            pq.top()->left=curr;
+            curr=pq.top();
+        }
+        pq.pop();
+        if(p!=NULL)
+        {
+           pq.push(p);
+           p=p->right;
+        }
+    }
+    curr->right=NULL;
+    return head2;
+}
+void display(struct node *p)
+{
+    while(p)
+    {
+        cout<<p->data<<"<->";
+        p=p->right;
+    }
+}
+int main()
+{
+    insert(3);
+    insert(6);
+    insert(2);
+    insert(12);
+    insert(56);
+    insert(8);
+    struct node *head2=ksort(head,2);
+    display(head2);
+}
