@@ -24,3 +24,22 @@ bool issubset(int n,vector<int> &g,int sum)
 
 #BOTTOM-UP CODE:
 
+
+bool issubset(int n,vector<int> &g,int sum,vector<vector<int>> &dp)
+{
+    if(n==0)
+       return false;
+    if(dp[n][sum]!=-1)
+        return dp[n][sum];
+    if(sum==0)
+        return dp[n][sum]=true;
+    if(g[n-1]>sum)
+        return dp[n][sum]=issubset(n-1,g,sum,dp);
+    else
+      return dp[n][sum]=issubset(n-1,g,sum,dp)||issubset(n-1,g,sum-g[n-1],dp);
+}
+
+#TOP-DOWN CODE:
+
+
+
