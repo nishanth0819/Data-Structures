@@ -31,13 +31,13 @@
 
 #CODE:
 
-int max_sum(vector<int> arr)
-{
-    int ms=arr[0],cs=arr[0];
-    for(int i=0;i<arr.size();i++)
+long long maxSubarraySum(int arr[], int n){
+          int ms=arr[0],cs=arr[0];
+    for(int i=1;i<n;i++)
     {
-        cs=max(cs,cs+arr[i]);
+        cs=max(arr[i],cs+arr[i]);
         ms=max(cs,ms);
     }
     return ms;
-}
+        
+    }
