@@ -1,0 +1,119 @@
+// Given a non-empty array nums containing only positive integers, find if the array can be partitioned
+// into two subsets such that the sum of elements in both subsets is equal.
+
+// Example 1:
+
+// Input: nums = [1,5,11,5]
+// Output: true
+// Explanation: The array can be partitioned as [1, 5, 5] and [11].
+// Example 2:
+
+// Input: nums = [1,2,3,5]
+// Output: false
+// Explanation: The array cannot be partitioned into equal sum subsets.
+ 
+// Constraints:
+
+// 1 <= nums.length <= 200
+// 1 <= nums[i] <= 100
+
+#RECURSIVE CODE:
+
+bool find(int n,int arr[],int sum)
+  {
+      if(sum==0)
+          return true;
+      if(n==0 && sum!=0)
+          return false;
+      if(arr[n-1]>sum)
+          return find(n-1,arr,sum);
+      else
+         return find(n-1,arr,sum)||find(n-1,arr,sum-arr[n-1]);
+  }
+         
+  int equalPartition(int N, int arr[])
+    {
+        // code here
+        int sum=0;
+        for(int i=0;i<N;i++)
+        {
+            sum=sum+arr[i];
+        }
+        if(sum%2!=0)
+            return false;
+        else
+            return find(N,arr,sum/2);
+        
+    }
+    
+    #BOTTOM-UP
+    
+    bool find(int n,int arr[],int sum,vector<vector<int>> &dp)
+  {
+      if(sum==0)
+          return true;
+      if(n==0 && sum!=0)
+          return false;
+    if(dp[n][sum]!=-1)
+        return dp[n][sum];
+      if(arr[n-1]>sum)
+          return dp[n][sum]=find(n-1,arr,sum,dp);
+      else
+         return dp[n][sum]=find(n-1,arr,sum,dp)||find(n-1,arr,sum-arr[n-1],dp);
+  }
+         
+  int equalPartition(int N, int arr[])
+    {
+        // code here
+        int sum=0;
+        for(int i=0;i<N;i++)
+        {
+            sum=sum+arr[i];
+        }
+        vector<vector<int>> dp(N+1,vector<int>(sum+1,-1));
+        if(sum%2!=0)
+            return false;
+        else
+            return find(N,arr,sum/2,dp);
+        
+    }
+};
+
+#TOP-DOWN:
+
+int equalPartition(int N, int arr[])
+    {
+        // code here
+        int sum=0;
+        int n=N;
+        for(int i=0;i<N;i++)
+        {
+            sum=sum+arr[i];
+        }
+        vector<vector<int>> dp(N+1,vector<int>((sum/2)+1,-1));
+        if(sum%2!=0)
+            return false;
+        else
+        {
+            for(int i=0;i<=n;i++)
+            {
+                dp[i][0]=1;
+            }
+            for(int i=0;i<=sum/2;i++)
+            {
+                dp[0][i]=0;
+            }
+            for(int i=1;i<=n;i++)
+            {
+                for(int j=1;j<=sum/2;j++)
+            {
+                if(arr[i-1]>j)
+                   dp[i][j]=dp[i-1][j];
+                 else
+                    dp[i][j]=dp[i-1][j]||dp[i-1][j-arr[i-1]];
+            }
+            }
+        }
+        return dp[n][sum/2];
+        
+    }
