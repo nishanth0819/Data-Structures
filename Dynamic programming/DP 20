@@ -13,8 +13,6 @@ Problem reduces to find no of subsets with given sum
 
 
 #CODE:
-
-using namespace std;
 int find(vector<int> g,int sum,int n)
 {
     vector<vector<int>> dp(n+1,vector<int>(sum+1));
