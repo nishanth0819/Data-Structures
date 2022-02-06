@@ -74,7 +74,7 @@ vector<int> find(vector<int> &arr1,vector<int> &arr2)
             if(s.empty()==true)
                 mp[arr2[i]]=-1;
             else
-               mp[arr2[i]]=s.top();
+               mp[arr2[i]]=s.top() ;
         }
         else
            mp[arr2[i]]=s.top();
