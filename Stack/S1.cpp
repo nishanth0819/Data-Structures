@@ -54,7 +54,7 @@ vector<long long> nextLargerElement(vector<long long> arr, int n){
     }
     
 
-OPTIMIZED CODE:
+OPTIMIZED  CODE:
 
  vector<long long> nextLargerElement(vector<long long> arr, int n){
         vector<long long> res;
