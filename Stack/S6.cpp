@@ -58,7 +58,7 @@
                     c++;
                 }
                 res.push_back(c);
-            }
+            } 
        }
        return res;
     }
