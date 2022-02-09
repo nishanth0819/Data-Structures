@@ -29,7 +29,7 @@ int largestRectangleArea(vector<int>& heights) {
                 res=max(res,wid*minh);
             }
         }
-        return res;
+        return res ;
     }
 
 #OPTIMIZED CODE:
