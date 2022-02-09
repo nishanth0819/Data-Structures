@@ -35,25 +35,35 @@ int largestRectangleArea(vector<int>& heights) {
 #OPTIMIZED CODE:
 
 int largestRectangleArea(vector<int>& heights) {
-        int n = heights.size(), ans = 0;
-        vector<int> nsl(n), nsr(n);
-        stack<int> st;
-        for(int i = 0; i < n; i++){
-            while(!st.empty() and heights[i] <= heights[st.top()])
-                st.pop();
-            if(st.empty()) nsl[i] = 0;
-            else nsl[i] = st.top() + 1;
-            st.push(i);
+        stack<pair<int,int>> st, st2;
+        vector<int> nsl, nsr;
+        for(int i=0; i<heights.size(); i++){
+            if(st.empty()) nsl.push_back(-1);
+            else if(!st.empty() && heights[i] <= st.top().first){
+                while(!st.empty() && heights[i] <= st.top().first)
+                    st.pop();
+                if(st.empty()) nsl.push_back(-1);
+                else nsl.push_back(st.top().second);
+            }
+            else nsl.push_back(st.top().second);
+            st.push({heights[i], i});
         }
-        while(!st.empty()) st.pop();
-        for(int i = n-1; i >= 0; i--){
-            while(!st.empty() and heights[i] <= heights[st.top()])
-                st.pop();
-            if(st.empty()) nsr[i] = n-1;
-            else nsr[i] = st.top() - 1;
-            st.push(i);
+        
+       for(int i=heights.size()-1; i>=0; i--){
+            if(st2.empty()) nsr.push_back(heights.size());
+            else if(!st.empty() && heights[i] <= st2.top().first){
+                while(!st2.empty() && heights[i] <= st2.top().first)
+                    st2.pop();
+                if(st2.empty()) nsr.push_back(heights.size());
+                else nsr.push_back(st2.top().second);
+            }
+            else nsr.push_back(st2.top().second);
+            st2.push({heights[i], i});
         }
-        for(int i = 0; i < n; i++)
-            ans = max(ans, (nsr[i] - nsl[i] + 1) * heights[i]);
+        reverse(nsr.begin(), nsr.end());
+        int ans = INT_MIN;
+        for(int i=0; i<heights.size(); i++)
+            ans = max(ans, (nsr[i]-nsl[i]-1)*heights[i]);
+        
         return ans;
     }
