@@ -1,0 +1,103 @@
+//Given a string str, find the length of the longest repeating subsequence such that it can be found twice in the given string.
+//The two identified subsequences A and B can use the same ith character from string str if and only if that ith character has different indices in A and B.
+
+//Input:
+str = "axxxy"
+Output: 2
+Explanation:
+The given array with indexes looks like
+a x x x y 
+0 1 2 3 4
+
+The longest subsequence is "xx". 
+It appears twice as explained below.
+
+subsequence A
+x x
+0 1  <-- index of subsequence A
+------
+1 2  <-- index of str 
+
+
+subsequence B
+x x
+0 1  <-- index of subsequence B
+------
+2 3  <-- index of str 
+
+We are able to use character 'x' 
+(at index 2 in str) in both subsequences
+as it appears on index 1 in subsequence A 
+and index 0 in subsequence B.
+
+//INPUT:
+
+Input:
+str = "aab"
+Output: 1
+Explanation: 
+The longest reapting subsequenece is "a".
+
+
+#RECUSIVE CODE:
+
+	int lrs(string g,int i,int j)
+	{
+	    if(i==0 || j==0)
+	         return 0;
+	    if(g[i-1]==g[j-1] && i!=j)
+	           return 1+lrs(g,i-1,j-1);
+	     else
+	        return max(lrs(g,i-1,j),lrs(g,i,j-1));
+	}
+		int LongestRepeatingSubsequence(string str){
+		    int n=str.length();
+		    int i=n,j=n;
+		    return lrs(str,i,j);
+		}
+    
+#BOTTOM-UP CODE:
+
+int lrs(string g,int i,int j,vector<vector<int>> &dp)
+	{
+	    if(i==0 || j==0)
+	         return 0;
+	    if(dp[i][j]!=-1)
+	        return dp[i][j];
+	    if(g[i-1]==g[j-1] && i!=j)
+	           return dp[i][j]=1+lrs(g,i-1,j-1,dp);
+	     else
+	        return dp[i][j]=max(lrs(g,i-1,j,dp),lrs(g,i,j-1,dp));
+	}
+		int LongestRepeatingSubsequence(string str){
+		    int n=str.length();
+		    int i=n,j=n;
+		    vector<vector<int>> dp(n+1,vector<int>(n+1,-1));
+		    return lrs(str,i,j,dp);
+		}
+    
+  #TOP-DOWN CODE:
+  
+  int LongestRepeatingSubsequence(string str){
+		    int n=str.length();
+		    vector<vector<int>> dp(n+1,vector<int>(n+1,-1));
+		    for(int i=0;i<=n;i++)
+		    {
+		        for(int j=0;j<=n;j++)
+		        {
+		            dp[i][j]=0;
+		        }
+		    }
+		    for(int i=1;i<=n;i++)
+		    {
+		        for(int j=1;j<=n;j++)
+		        {
+		            if(str[i-1]==str[j-1] && i!=j)
+		               dp[i][j]=1+dp[i-1][j-1];
+		            else
+		              dp[i][j]=max(dp[i-1][j],dp[i][j-1]);
+		        }
+		    }
+		    return dp[n][n];
+		    
+		}
