@@ -1,0 +1,58 @@
+#Given two strings. The task is to find the length of the longest common substring.
+#Input: S1 = "ABCDGH", S2 = "ACDGHR"
+Output: 4
+Explanation: The longest common substring
+is "CDGH" which has length 4.
+#Input: S1 = "ABC", S2 "ACB"
+Output: 1
+Explanation: The longest common substrings
+are "A", "B", "C" all having length 1.
+
+#RECURSIVE CODE:
+
+   int find(string x,string y,int m,int n,int count)
+    {
+        if(m==0 || n==0)
+            return count;
+        if(x[m-1]==y[n-1])
+           return find(x,y,m-1,n-1,count+1);
+        else
+           return max(count,max(find(x,y,m-1,n,0),find(x,y,m,n-1,0)));
+    }
+    
+    int longestCommonSubstr (string S1, string S2, int n, int m)
+    {
+        int count=0;
+         return find(S1,S2,n,m,count);
+    }
+    
+    
+ #TOP-DOWN CODE:
+ 
+ int maxi=0;
+    int longestCommonSubstr (string S1, string S2, int n, int m)
+    {
+        vector<vector<int>> dp(n+1,vector<int>(m+1));
+        for(int i=0;i<=n;i++)
+        {
+            for(int j=0;j<=m;j++)
+            {
+                if(i==0 || j==0)
+                   dp[i][j]=0;
+            }
+        }
+        for(int i=1;i<=n;i++)
+        {
+            for(int j=1;j<=m;j++)
+            {
+                if(S1[i-1]==S2[j-1])
+                {
+                    dp[i][j]=1+dp[i-1][j-1];
+                    maxi=max(dp[i][j],maxi);
+                }
+                else
+                dp[i][j]=0;
+            }
+        }
+         return maxi;
+    }
