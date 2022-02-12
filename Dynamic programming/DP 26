@@ -28,6 +28,7 @@ int find(vector<int> &arr,int pro,int k,int n,vector<vector<int>> &dp)
     else
       return dp[n][pro/arr[n-1]]=find(arr,pro,k*arr[n-1],n-1,dp)+find(arr,pro,k,n-1,dp);
 }
+
 int countSubsequences(vector < int > & a, int n, int p) {
     int k=1;
     vector<vector<int>> dp(n+1,vector<int>(p+1,-1));
