@@ -69,7 +69,7 @@
     
     int peek() {
         if(st1.empty()==true && st2.empty()==true)
-            return -1;
+            return -1 ;
         if(st2.empty()==true)
         {
             while(st1.empty()==false)
