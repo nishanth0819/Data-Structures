@@ -15,27 +15,21 @@ But product of elements of subsequence {2,5}, {3,5}, {2,3,5} is more than p i.e 
 OUTPUT:
 9
 //RECURSION:
-int find(vector<int> &arr,int pro,int k,int n,vector<vector<int>> &dp)
+int find(vector<int> &arr,int pro,int k,int n)
 {
     if(n==0 && pro>=k)
        return 1;
     if(pro<k || n==0)
         return 0;
-    if(dp[n][pro/arr[n-1]]!=-1)
-        return dp[n][pro/arr[n-1]];
     if(arr[n-1]>pro)
-        return dp[n][pro/arr[n-1]]=find(arr,pro,k,n-1,dp);
+        return find(arr,pro,k,n-1);
     else
-      return dp[n][pro/arr[n-1]]=find(arr,pro,k*arr[n-1],n-1,dp)+find(arr,pro,k,n-1,dp);
+      return find(arr,pro,k*arr[n-1],n-1)+find(arr,pro,k,n-1);
 }
-
 int countSubsequences(vector < int > & a, int n, int p) {
     int k=1;
-    vector<vector<int>> dp(n+1,vector<int>(p+1,-1));
-    return find(a,p,k,n,dp)-1;
+    return find(a,p,k,n)-1;
 }
-
-
 
 //BOTTOM-UP CODE:
 
