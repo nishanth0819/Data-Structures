@@ -20,7 +20,7 @@
 
 class Solution {
 public:
-    string removeKdigits(string num, int k) {
+    string removeKdigits(string num, int k)  {
         stack<char> st;
         string res = "";
         int n = num.size();
