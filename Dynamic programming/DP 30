@@ -1,0 +1,66 @@
+//A sequence {x1, x2, .. xn} is alternating sequence if its elements satisfy one of the following relations : 
+//x1 < x2 > x3 < x4 > x5 < …. xn or 
+//x1 > x2 < x3 > x4 < x5 > …. xn
+
+Input: arr[] = {1, 5, 4}
+Output: 3
+The whole arrays is of the form  x1 < x2 > x3 
+
+Input: arr[] = {1, 4, 5}
+Output: 2
+All subsequences of length 2 are either of the form 
+x1 < x2; or x1 > x2
+
+Input: arr[] = {10, 22, 9, 33, 49, 50, 31, 60}
+Output: 6
+The subsequences {10, 22, 9, 33, 31, 60} or
+{10, 22, 9, 49, 31, 60} or {10, 22, 9, 50, 31, 60}
+are longest subsequence of length 6.
+
+
+//RECURSIVE CODE:
+int find(vector<int> &nums,int start,int end,bool flag)
+    {
+    	int taken=0,nottaken=0;
+    	if(start==end)
+    	    return 1;
+    	    
+    	else if(flag==true && nums[start-1]<nums[start] && start!=0)
+    	        taken=1+find(nums,start+1,end,!flag);
+    	 else if(flag==false && nums[start-1]>nums[start] && start!=0)
+    	       taken=1+find(nums,start+1,end,!flag);
+    	 nottaken=find(nums,start+1,end,flag);
+    	 return max(taken,nottaken);
+    }
+	int AlternatingaMaxLength(vector<int>&nums){
+		    int n=nums.size();
+		if(n==0)
+		    return 0;
+		else 
+		   return max(find(nums,0,n,true),find(nums,0,n,false));
+		}
+    
+    
+//BOTTOM-UP CODE:
+ int find(vector<int> &nums,int start,int end,bool flag,vector<vector<int>> &dp)
+    {
+    	int taken=0,nottaken=0;
+    	if(start==end)
+    	    return 1;
+    	 if(dp[start][flag]!=-1)
+    	    return dp[start][flag];
+    	else if(flag==true && nums[start-1]<nums[start] && start!=0)
+    	        taken=1+find(nums,start+1,end,!flag,dp);
+    	 else if(flag==false && nums[start-1]>nums[start] && start!=0)
+    	       taken=1+find(nums,start+1,end,!flag,dp);
+    	 nottaken=find(nums,start+1,end,flag,dp);
+    	 return dp[start][flag]=max(taken,nottaken);
+    }
+	int AlternatingaMaxLength(vector<int>&nums){
+		    int n=nums.size();
+		    vector<vector<int>> dp(n+1,vector<int>(2,-1));
+		if(n==0)
+		    return 0;
+		else 
+		   return max(find(nums,0,n,true,dp),find(nums,0,n,false,dp));
+		}
