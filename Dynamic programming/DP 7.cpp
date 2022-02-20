@@ -5,6 +5,7 @@ Can you help Ninja find out the maximum merit points Ninja can earn?
 You are given a 2D array of size N*3 ‘POINTS’ with the points corresponding to each day and activity. 
 #Your task is to calculate the maximum number of merit points that Ninja can earn.
 #I/P:
+
 2
 10 50 1
 5 100 11
