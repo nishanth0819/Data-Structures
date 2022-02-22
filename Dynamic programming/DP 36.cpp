@@ -29,7 +29,7 @@ int longestSubsequence(vector<int> &nums){
     return find(-1,0,nums);
 }
 
-//MEMORIZATION:
+//MEMORIZATION(Map):
 int find(int prev,int i,vector<int> &nums,map<pair<int,int>,int> &mp)
 {
     if(i==nums.size())
@@ -47,5 +47,32 @@ int longestSubsequence(vector<int> &nums){
     map<pair<int,int>,int> mp;
     return find(-1,0,nums,mp);
 }
+
+//Memorization(Matrix)
+
+int find(int prev,int i,vector<int> &nums,vector<vector<int>> &dp)
+{
+    if(i==nums.size())
+        return 0;
+    if(prev!=-1 && dp[prev][i]!=-1)
+         return dp[prev][i];
+    int op1=0;
+    if(prev==-1 ||nums[i]-nums[prev]==1 || nums[prev]-nums[i]==1)
+        op1=1+find(i,i+1,nums,dp);
+    int op2=find(prev,i+1,nums,dp);
+    if(prev!=-1)
+       dp[prev][i]=max(op1,op2);
+     return max(op1,op2);
+}
+
+    int longestSubsequence(int N, int A[])
+    {
+        vector<int> nums;
+        vector<vector<int>> dp(N+1,vector<int>(N+1,-1));
+        for(int i=0;i<N;i++)
+           nums.push_back(A[i]);
+        return find(-1,0,nums,dp);
+          
+    }
 
  
