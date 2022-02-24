@@ -25,9 +25,6 @@ int find(int prev,int curr,vector<int> nums,vector<int> &ans,int k)
     }
     if(curr==nums.size())
         return 0;
-    auto it=mp.find({prev,curr});
-    if(it!=mp.end())
-        return mp[{prev,curr}];
     int op1=0;
     ans.push_back(nums[curr]);
     if(prev==-1||nums[prev]<=nums[curr])
@@ -37,7 +34,7 @@ int find(int prev,int curr,vector<int> nums,vector<int> &ans,int k)
     }
     ans.pop_back();
     int op2=find(prev,curr+1,nums,ans,k);
-    return mp[{prev,curr}]=max(op1,op2);
+    return max(op1,op2);
 }
 long long maximumSum(vector<int>& nums, int k) {
     vector<int> ans;
