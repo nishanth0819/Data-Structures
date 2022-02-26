@@ -46,3 +46,30 @@ int matrixMultiplication(vector<int> &arr, int N)
     return solve(arr,1,N-1);
 }
 
+//BOTTOM UP CODE:
+
+vector<vector<int>> dp;
+int solve(vector<int> &a,int i,int j)
+{
+    if(i==j)
+        return 0;
+    if(dp[i][j]!=-1)
+        return dp[i][j];
+    int k;
+    int mini=1e9;
+    int count;
+    for(int k=i;k<j;k++)
+    {
+        count=solve(a,i,k)+solve(a,k+1,j)+a[i-1]*a[k]*a[j];
+        if(count<mini)
+            mini=count;
+    }
+    return dp[i][j]=mini;
+}
+int matrixMultiplication(vector<int> &arr, int N)
+{
+    // Write your code here.
+    dp.clear();
+    dp.resize(N+1,vector<int>(N+1,-1));
+    return solve(arr,1,N-1);
+}
