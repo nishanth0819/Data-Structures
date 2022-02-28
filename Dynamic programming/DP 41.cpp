@@ -73,3 +73,40 @@ int matrixMultiplication(vector<int> &arr, int N)
     dp.resize(N+1,vector<int>(N+1,-1));
     return solve(arr,1,N-1);
 }
+
+
+
+//TOP-DOWN CODE:
+
+
+vector<vector<int>> dp;
+int solve(vector<int> &a,int i,int j)
+{
+    int n=j+1;
+    for(int g=1;g<n;g++)
+    {
+        for(int i=1,j=g;j<n;j++,i++)
+        {
+            if(i==j)
+                dp[i][j]=0;
+            else
+            {
+                dp[i][j]=1e9;
+                for(int k=i;k<j;k++)
+                {
+                    int ans=dp[i][k]+dp[k+1][j]+(a[i-1]*a[j]*a[k]);
+                    if(ans<dp[i][j])
+                        dp[i][j]=ans;
+                }
+            }
+        }
+     }
+    return dp[i][j];
+}
+int matrixMultiplication(vector<int> &arr, int N)
+{
+    // Write your code here.
+    dp.clear();
+    dp.resize(N+1,vector<int>(N+1,-1));
+    return solve(arr,1,N-1);
+}
