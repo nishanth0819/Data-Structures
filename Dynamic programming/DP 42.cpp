@@ -3,7 +3,7 @@
 
 Example 1:
 
-Input: str = "ababbbabbababa"
+Input: str = "ababbbabbababa" 
 Output: 3
 Explaination: After 3 partitioning substrings 
 are "a", "babbbab", "b", "ababa".
