@@ -56,8 +56,9 @@ bool check(string s,int i,int j)
 
 //BOTTOM-UP CODE:
 
-vector<vector<int>> dp;
-   bool check(string s,int i,int j)
+//vector<vector<int>> dp;
+   int dp[501][501];
+   bool check(string &s,int i,int j)
    {
        while(i<j)
        {
@@ -68,7 +69,7 @@ vector<vector<int>> dp;
        }
        return true;
    }
-    int find(string s,int i,int j)
+    int find(string &s,int i,int j)
     {
         if(i>j || check(s,i,j))
            return dp[i][j]=0;
@@ -86,14 +87,8 @@ vector<vector<int>> dp;
     int palindromicPartition(string str)
     {
         int n=str.length();
-        dp.clear();
-        dp.resize(n+1,vector<int>(n+1,-1));
+       // dp.clear();
+       // dp.resize(n+1,vector<int>(n+1,-1));
+       memset(dp,-1,sizeof(dp));
         return find(str,0,str.length()-1);
     }
-
-//TOP-DOWN CODE:
-
-
-
-
-
