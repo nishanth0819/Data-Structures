@@ -52,7 +52,7 @@ words[i] only consists of lowercase English letters.*/
         {
             if(curr[i]==prev[j])
             {
-                i++;
+                i++; 
                 j++;
             }
             else
