@@ -42,3 +42,21 @@
         return ans;
         
     }
+
+//Alternate Method
+
+
+ int maxProduct(vector<int>& nums) {
+       int curr_max_pro=nums[0],prev_max_pro=nums[0],res=nums[0],prev_min_pro=nums[0];
+        int curr_min_pro=nums[0];
+        int n=nums.size();
+        for(int i=1;i<n;i++)
+        {
+            curr_max_pro=max({prev_max_pro*nums[i],prev_min_pro*nums[i],nums[i]});
+            curr_min_pro=min({prev_max_pro*nums[i],prev_min_pro*nums[i],nums[i]});
+            res=max(res,curr_max_pro);
+            prev_max_pro=curr_max_pro;
+            prev_min_pro=curr_min_pro;
+        }
+        return res;
+    }
