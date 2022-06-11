@@ -31,7 +31,7 @@ Output: []*/
     {
         bool operator()(const ListNode* l,const ListNode* m){
         
-            return l->val>m->val;
+            return l->val>m->val;    //> rep min heap and < rep max heap
     }
     };
     ListNode* mergeKLists(vector<ListNode*>& lists) {
