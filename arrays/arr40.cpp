@@ -59,3 +59,17 @@
             choice=count;
         }
     }
+
+//OPTIMIZED CODE:
+
+ int minStartValue(vector<int>& nums) {
+        int minsum=0,currsum=0;
+         for(auto it:nums)
+         {
+            currsum=currsum+it;
+             if(currsum<minsum)
+                 minsum=currsum;
+         }
+        return -minsum+1;
+        
+    }
