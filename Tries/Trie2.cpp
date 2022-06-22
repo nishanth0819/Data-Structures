@@ -5,7 +5,7 @@ struct trienode
     struct trienode* children[26];
     bool isendofword;
 };
-struct trienode* getnode()
+struct trienode* getnode() 
 {
     struct trienode* pnode=new trienode;
     pnode->isendofword=false;
