@@ -14,7 +14,7 @@
 
 //CODE:
 
-    int maximalSquare(vector<vector<char>>& matrix) {
+    int maximalSquare(vector<vector<char>>& matrix)  {
         int rows=matrix.size();
         int col=matrix[0].size();
         if(rows==0)
