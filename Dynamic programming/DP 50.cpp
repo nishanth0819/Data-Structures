@@ -36,3 +36,22 @@ Explanation: There is no way to make a positive profit, so we never buy the stoc
               
     }
 
+//Recursive Code(TLE):
+    int f(vector<int> &prices,int i,int n,int buy)
+    {
+        if(i==n)
+            return 0;
+        int profit=0;
+        if(buy)
+        {
+            profit=max(-prices[i]+f(prices,i+1,n,0),f(prices,i+1,n,1));
+        }
+        else
+            profit=max(prices[i]+f(prices,i+1,n,1),f(prices,i+1,n,0));
+        return profit;
+    }
+    int maxProfit(vector<int>& prices) {
+          int index=0,n=prices.size();
+        int buy=1;
+        return f(prices,index,n,buy);
+    }
