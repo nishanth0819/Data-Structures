@@ -55,3 +55,26 @@ Explanation: There is no way to make a positive profit, so we never buy the stoc
         int buy=1;
         return f(prices,index,n,buy);
     }
+
+//Dynamic Programming (Bottom-Up)
+int f(vector<int> &prices,int i,int n,int buy,vector<vector<int>> &dp)
+    {
+        if(i==n)
+            return 0;
+        int profit=0;
+        if(dp[i][buy]!=-1e9)
+            return dp[i][buy];
+        if(buy)
+        {
+            profit=max(-prices[i]+f(prices,i+1,n,0,dp),f(prices,i+1,n,1,dp));
+        }
+        else
+            profit=max(prices[i]+f(prices,i+1,n,1,dp),f(prices,i+1,n,0,dp));
+        return dp[i][buy]=profit;
+    }
+    int maxProfit(vector<int>& prices) {
+          int index=0,n=prices.size();
+        int buy=1;
+        vector<vector<int>> dp(n+1,vector<int>(2,-1e9));
+        return f(prices,index,n,buy,dp);
+    }
